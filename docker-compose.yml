@@ -1,0 +1,77 @@
+version: "3.1"
+
+networks:
+  local.net:
+
+services:
+  c_develop:
+    container_name: dev.me
+    hostname: dev.me
+    image: dev:1.0
+    build:
+      context: ./dev
+    environment:
+    - TIME_ZONE=Asia/Shanghai
+    networks:
+    - local.net
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./data/develop:/data
+
+  c_runtime:
+    container_name: run.me
+    hostname: run.me
+    image: run:1.0
+    build:
+      context: ./run
+    environment:
+    - TIME_ZONE=Asia/Shanghai
+    networks:
+    - local.net
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./data/runtime:/data
+
+  c_mysql:
+    container_name: mysql.me
+    hostname: mysql.me
+    image: mysql
+    environment:
+    - TIME_ZONE=Asia/Shanghai
+    - MYSQL_ROOT_PASSWORD=123456
+    networks:
+    - local.net
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./data/mysql:/var/lib/mysql
+    - ./data/mysql_logs:/logs
+
+  c_mongo:
+    container_name: mongo.me
+    hostname: mongo.me
+    image: mongo
+    environment:
+    - TIME_ZONE=Asia/Shanghai
+    networks:
+    - local.net
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./data/mongo:/data/db
+
+  c_redis:
+    container_name: redis.me
+    hostname: redis.me
+    image: redis
+    environment:
+    - TIME_ZONE=Asia/Shanghai
+    entrypoint: redis-server --appendonly yes
+    networks:
+    - local.net
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./data/redis:/data
