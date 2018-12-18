@@ -6,6 +6,6 @@ RUN cd /root \
     && apt-get update && apt-get install -y apt-utils net-tools sysstat locales git curl wget tar unzip screen subversion iputils-ping vim fish \
     && echo "${TIME_ZONE}" > /etc/timezone && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
 
-RUN apt-get install -y mysql-client redis mongodb-clients
+RUN apt-get install -y mysql-client redis mongodb-clients php php-mysql
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
