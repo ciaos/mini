@@ -18,6 +18,7 @@ services:
     tty: true
     volumes:
     - ./data/data:/data
+    - ../../kucoin:/kucoin
 
   c_runtime:
     container_name: run.me
@@ -49,7 +50,7 @@ services:
     tty: true
     volumes:
     - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    - ./data/data:/var/www/html
+    - ../../kucoin/gateway:/var/www/html
 
   c_php:
     container_name: php.me
@@ -64,7 +65,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-    - ./data/html:/var/www/html
+    - ../../kucoin/gateway:/var/www/html
 
   c_mysql:
     container_name: mysql.me
